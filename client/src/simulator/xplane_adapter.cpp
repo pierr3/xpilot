@@ -92,7 +92,10 @@ enum DataRef
     XplaneVersionNumber,
     Com1OnHeadset,
     Com2OnHeadset,
-    SplitAudioChannels
+    SplitAudioChannels,
+    IndicatedAirSpeed,
+    MachNumber,
+    SelectedAltitudeFt
 };
 
 XplaneAdapter::XplaneAdapter(QObject* parent) : QObject(parent)
@@ -315,6 +318,9 @@ void XplaneAdapter::SubscribeDataRefs()
     SubscribeDataRef("sim/cockpit/switches/gear_handle_status", DataRef::GearDown, 5);
     SubscribeDataRef("sim/flightmodel/controls/flaprat", DataRef::FlapRatio, 5);
     SubscribeDataRef("sim/cockpit2/controls/speedbrake_ratio", DataRef::SpeedbrakeRatio, 5);
+    SubscribeDataRef("sim/flightmodel/position/indicated_airspeed", DataRef::IndicatedAirSpeed, 1);
+    SubscribeDataRef("sim/flightmodel/misc/machno", DataRef::MachNumber, 1);
+    SubscribeDataRef("sim/cockpit2/autopilot/altitude_dial_ft", DataRef::SelectedAltitudeFt, 1);
     SubscribeDataRef("sim/flightmodel2/gear/tire_steer_actual_deg[0]", DataRef::NoseWheelAngle, 15);
     SubscribeDataRef("sim/operation/prefs/replay_mode", DataRef::ReplayMode, 5);
     SubscribeDataRef("sim/time/paused", DataRef::Paused, 5);
@@ -324,6 +330,7 @@ void XplaneAdapter::SubscribeDataRefs()
     SubscribeDataRef("xpilot/audio/com1_on_headset", DataRef::Com1OnHeadset, 5);
     SubscribeDataRef("xpilot/audio/com2_on_headset", DataRef::Com2OnHeadset, 5);
     SubscribeDataRef("xpilot/audio/split_audio_channels", DataRef::SplitAudioChannels, 5);
+
 }
 
 void XplaneAdapter::SubscribeDataRef(std::string dataRef, uint32_t id, uint32_t frequency)
@@ -655,6 +662,15 @@ void XplaneAdapter::OnDataReceived()
                     break;
                 case DataRef::NoseWheelAngle:
                     m_userAircraftData.NoseWheelAngle = value;
+                    break;
+                case DataRef::IndicatedAirSpeed:
+                    m_userAircraftData.IndicatedAirSpeed = value;
+                    break;
+                case DataRef::MachNumber:
+                    m_userAircraftData.MachNumber = value;
+                    break;
+                case DataRef::SelectedAltitudeFt:
+                    m_userAircraftData.SelectedAltitudeFt = value;
                     break;
                 case DataRef::ReplayMode:
                     if(value > 0) {

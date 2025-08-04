@@ -46,3 +46,6 @@ compile_commands.json
 
 plugin/include/Constants.h
 plugin/build/*
+
+build/
+.vscode/

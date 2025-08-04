@@ -43,6 +43,9 @@ public:
     double HeadingVelocity;
     double BankVelocity;
     double NoseWheelAngle;
+    double IndicatedAirSpeed;
+    double MachNumber;
+    double SelectedAltitudeFt;
 
     bool operator!=(const UserAircraftData& other) const
     {
@@ -63,7 +66,10 @@ public:
                 PitchVelocity != other.PitchVelocity ||
                 HeadingVelocity != other.HeadingVelocity ||
                 BankVelocity != other.BankVelocity ||
-                NoseWheelAngle != other.NoseWheelAngle;
+                NoseWheelAngle != other.NoseWheelAngle ||
+                IndicatedAirSpeed != other.IndicatedAirSpeed ||
+                MachNumber != other.MachNumber ||
+                SelectedAltitudeFt != other.SelectedAltitudeFt;
     }
 
     bool operator==(const UserAircraftData& other) const
@@ -85,6 +91,9 @@ public:
                 PitchVelocity == other.PitchVelocity &&
                 HeadingVelocity == other.HeadingVelocity &&
                 BankVelocity == other.BankVelocity &&
-                NoseWheelAngle == other.NoseWheelAngle;
+                NoseWheelAngle == other.NoseWheelAngle &&
+                IndicatedAirSpeed == other.IndicatedAirSpeed &&
+                MachNumber == other.MachNumber &&
+                SelectedAltitudeFt == other.SelectedAltitudeFt;
     }
 };
