@@ -96,7 +96,8 @@ enum class ClientQueryType
     NewInfo,
     NewATIS,
     Estimate,
-    SetGlobalData
+    SetGlobalData,
+    ModeSEhs
 };
 
 enum class FlightRules

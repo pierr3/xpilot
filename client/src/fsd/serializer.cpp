@@ -339,6 +339,8 @@ QString toQString(const ClientQueryType &value)
             return "EST";
         case ClientQueryType::SetGlobalData:
             return "GD";
+        case ClientQueryType::ModeSEhs:
+            return "EHS";
         default:
             return "";
     }
@@ -432,6 +434,9 @@ ClientQueryType fromQString(const QString &str)
     }
     else if(str == "GD") {
         return ClientQueryType::SetGlobalData;
+    }
+    else if(str == "EHS") {
+        return ClientQueryType::ModeSEhs;
     }
     else {
         return ClientQueryType::Unknown;

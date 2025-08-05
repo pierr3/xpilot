@@ -95,6 +95,7 @@ namespace xpilot
 
         connect(&m_slowPositionTimer, &QTimer::timeout, this, &NetworkManager::OnSlowPositionTimerElapsed);
         connect(&m_fastPositionTimer, &QTimer::timeout, this, &NetworkManager::OnFastPositionTimerElapsed);
+        connect(&m_ehsTimer, &QTimer::timeout, this, &NetworkManager::SendEhsPacket);
         m_fastPositionTimer.setInterval(200);
     }
 
@@ -128,6 +129,7 @@ namespace xpilot
     {
         m_fastPositionTimer.stop();
         m_slowPositionTimer.stop();
+        m_ehsTimer.stop();
 
         if(m_forcedDisconnect) {
             if(!m_forcedDisconnectReason.isEmpty()) {
@@ -201,6 +203,8 @@ namespace xpilot
         SendStoppedFastPositionPacket();
         m_slowPositionTimer.setInterval(m_connectInfo.ObserverMode || m_connectInfo.TowerViewMode ? 15000 : 5000);
         m_slowPositionTimer.start();
+        m_ehsTimer.setInterval(2000); // 2 seconds
+        m_ehsTimer.start();
     }
 
     QtPromise::QPromise<QString> NetworkManager::GetBestFsdServer()
@@ -364,6 +368,7 @@ namespace xpilot
             case ClientQueryType::NewATIS:
             case ClientQueryType::Estimate:
             case ClientQueryType::SetGlobalData:
+            case ClientQueryType::ModeSEhs:
                 break;
         }
     }
@@ -748,6 +753,17 @@ namespace xpilot
     void NetworkManager::SendAircraftConfigurationUpdate(AircraftConfiguration config)
     {
         SendAircraftConfigurationUpdate("@94836", config);
+    }
+
+    void NetworkManager::SendEhsPacket()
+    {
+        ModeSEhsConfigInfo ehsConfig{
+            m_userAircraftData.IndicatedAirSpeed,
+            m_userAircraftData.MachNumber,
+            m_userAircraftData.SelectedAltitudeFt
+        };
+
+        m_fsd.SendPDU(PDUClientQuery(m_connectInfo.Callsign, "@94836", ClientQueryType::ModeSEhs, {ehsConfig.ToJson()}));
     }
 
     void NetworkManager::SendAircraftConfigurationUpdate(QString to, AircraftConfiguration config)

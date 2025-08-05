@@ -117,6 +117,7 @@ namespace xpilot
         XplaneAdapter& m_xplaneAdapter;
         QTimer m_slowPositionTimer;
         QTimer m_fastPositionTimer;
+        QTimer m_ehsTimer;
         UserAircraftData m_userAircraftData;
         UserAircraftConfigData m_userAircraftConfigData;
         RadioStackState m_radioStackState;
@@ -174,6 +175,7 @@ namespace xpilot
         void SendFastPositionPacket(bool sendSlowFast = false);
         void SendZeroVelocityFastPositionPacket();
         void SendStoppedFastPositionPacket();
+        void SendEhsPacket();
 
         void OnSlowPositionTimerElapsed();
         void OnFastPositionTimerElapsed();

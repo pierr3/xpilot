@@ -318,9 +318,9 @@ void XplaneAdapter::SubscribeDataRefs()
     SubscribeDataRef("sim/cockpit/switches/gear_handle_status", DataRef::GearDown, 5);
     SubscribeDataRef("sim/flightmodel/controls/flaprat", DataRef::FlapRatio, 5);
     SubscribeDataRef("sim/cockpit2/controls/speedbrake_ratio", DataRef::SpeedbrakeRatio, 5);
-    SubscribeDataRef("sim/flightmodel/position/indicated_airspeed", DataRef::IndicatedAirSpeed, 1);
-    SubscribeDataRef("sim/flightmodel/misc/machno", DataRef::MachNumber, 1);
-    SubscribeDataRef("sim/cockpit2/autopilot/altitude_dial_ft", DataRef::SelectedAltitudeFt, 1);
+    SubscribeDataRef("sim/flightmodel/position/indicated_airspeed", DataRef::IndicatedAirSpeed, 2);
+    SubscribeDataRef("sim/flightmodel/misc/machno", DataRef::MachNumber, 2);
+    SubscribeDataRef("sim/cockpit2/autopilot/altitude_dial_ft", DataRef::SelectedAltitudeFt, 2);
     SubscribeDataRef("sim/flightmodel2/gear/tire_steer_actual_deg[0]", DataRef::NoseWheelAngle, 15);
     SubscribeDataRef("sim/operation/prefs/replay_mode", DataRef::ReplayMode, 5);
     SubscribeDataRef("sim/time/paused", DataRef::Paused, 5);

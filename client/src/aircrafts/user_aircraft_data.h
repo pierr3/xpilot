@@ -19,6 +19,9 @@
 #pragma once
 
 #include <QObject>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <cmath>
 
 struct UserAircraftData
 {
@@ -96,4 +99,23 @@ public:
                 MachNumber == other.MachNumber &&
                 SelectedAltitudeFt == other.SelectedAltitudeFt;
     }
+};
+
+class ModeSEhsConfigInfo
+{
+public:
+    double IAS;
+    double Mach;
+    double SelectedAltitudeFt;
+
+    bool HasIAS() const { return IAS != 0.0; }
+    bool HasMach() const { return Mach != 0.0; }
+    bool HasSelectedAltitude() const { return SelectedAltitudeFt != 0.0; }
+
+    ModeSEhsConfigInfo(double ias = 0.0, double mach = 0.0, double selectedAltitudeFt = 0.0)
+        : IAS(ias), Mach(mach), SelectedAltitudeFt(selectedAltitudeFt)
+    {
+    }
+
+    QString ToJson() const;
 };
